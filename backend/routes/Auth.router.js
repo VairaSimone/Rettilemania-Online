@@ -1,6 +1,6 @@
 import express from 'express';
 import * as authController from '../controllers/AuthRoute_controller.js';
-import { authenticateJWT } from '../middlewares/auth.js';
+import { authenticateJWT } from '../middlewares/Auth.js';
 import { refreshToken } from '../config/RefreshToken.js';
 import passport from 'passport';
 
