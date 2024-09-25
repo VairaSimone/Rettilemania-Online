@@ -1,0 +1,47 @@
+.title-dashboard {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #4CAF50;
+  }
+  
+  .btn-custom {
+    background: linear-gradient(45deg, #4CAF50, #81C784);
+    border: none;
+    color: white;
+  }
+  
+  .btn-custom:hover {
+    background: linear-gradient(45deg, #66BB6A, #43A047);
+  }
+  
+  .reptile-card {
+    border-radius: 10px;
+    transition: transform 0.2s ease-in-out;
+  }
+  
+  .reptile-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  .reptile-img {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    object-fit: cover;
+    height: 200px;
+  }
+  
+  .reptile-name {
+    font-size: 1.5rem;
+    color: #333;
+  }
+  
+  .btn-action {
+    border-radius: 50px;
+  }
+  
+  .pagination-custom .page-item.active .page-link {
+    background-color: #4CAF50;
+    border-color: #4CAF50;
+  }
+  
