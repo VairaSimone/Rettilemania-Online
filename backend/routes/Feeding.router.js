@@ -1,6 +1,6 @@
 import express from 'express';
 import * as feedingController from '../controllers/FeedingRoute_controller.js';
-import { authenticateJWT } from '../middlewares/auth.js';
+import { authenticateJWT } from '../middlewares/Auth.js';
 
 const feedingRouter = express.Router();
 

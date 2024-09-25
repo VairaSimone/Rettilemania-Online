@@ -1,6 +1,6 @@
 import express from 'express';
 import * as reptileController from '../controllers/ReptileRoute_controller.js';
-import { authenticateJWT } from '../middlewares/auth.js';
+import { authenticateJWT } from '../middlewares/Auth.js';
 import multer from 'multer';
 
 const reptileRouter = express.Router();

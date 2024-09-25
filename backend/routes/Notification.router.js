@@ -1,6 +1,6 @@
 import express from 'express';
 import * as notificationController from '../controllers/NotificationRoute_controller.js';
-import { authenticateJWT } from '../middlewares/auth.js';
+import { authenticateJWT } from '../middlewares/Auth.js';
 
 const notificationRouter = express.Router();
 

@@ -1,5 +1,5 @@
 import express from 'express';
-import { authenticateJWT } from '../middlewares/auth.js';
+import { authenticateJWT } from '../middlewares/Auth.js';
 import * as postController from '../controllers/ForumPost_controller.js';
 import * as threadController from '../controllers/ForumThread_controller.js';
 import * as CategoryController from '../controllers/ForumCategory_controller.js';
