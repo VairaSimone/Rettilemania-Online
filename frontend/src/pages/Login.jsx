@@ -15,7 +15,7 @@ const Login = () => {
     e.preventDefault();
     try {
       const res = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/v1/login`, { email, password }, {
-        withCredentials: "include",
+        withCredentials: true,
         headers: {
           'Content-Type': 'application/json',
         }
