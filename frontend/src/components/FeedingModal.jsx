@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Modal, Button, Form, Table } from 'react-bootstrap';
+import { Modal, Button, Form, Table, Pagination } from 'react-bootstrap';
 import api from '../services/api';
-import '../Style/FeedingModal.css'; 
+import '../Style/FeedingModal.css';
 
-const FeedingModal = ({ show, handleClose, reptileId }) => {
+const FeedingModal = ({ show, handleClose, reptileId, onFeedingAdded }) => {
   const [feedings, setFeedings] = useState([]);
   const [formData, setFormData] = useState({
     date: '',
@@ -14,16 +14,20 @@ const FeedingModal = ({ show, handleClose, reptileId }) => {
     daysUntilNextFeeding: '',
   });
 
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+
   useEffect(() => {
     if (show && reptileId) {
-      fetchFeedings();
+      fetchFeedings(page);
     }
-  }, [show, reptileId]);
+  }, [show, reptileId, page]);
 
-  const fetchFeedings = async () => {
+  const fetchFeedings = async (page) => {
     try {
-      const { data } = await api.get(`/feedings/${reptileId}`);
+      const { data } = await api.get(`/feedings/${reptileId}?page=${page}`);
       setFeedings(data.dati);
+      setTotalPages(data.totalPages);
     } catch (err) {
       console.error('Error loading meals:', err);
     }
@@ -37,13 +41,11 @@ const FeedingModal = ({ show, handleClose, reptileId }) => {
   const handleDelete = async (feedingId) => {
     try {
       await api.delete(`/feedings/${feedingId}`);
-
       setFeedings(feedings.filter((feeding) => feeding._id !== feedingId));
     } catch (err) {
       console.error('Error deleting meal:', err);
     }
   };
-
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -58,9 +60,14 @@ const FeedingModal = ({ show, handleClose, reptileId }) => {
         notes: '',
         daysUntilNextFeeding: '',
       });
+      if (onFeedingAdded) onFeedingAdded();
     } catch (err) {
       console.error('Error adding meal:', err);
     }
+  };
+
+  const handlePageChange = (page) => {
+    setPage(page);
   };
 
   return (
@@ -135,38 +142,52 @@ const FeedingModal = ({ show, handleClose, reptileId }) => {
         </Form>
 
         <h5 className="mt-5 title-custom">Cronologia dei Pasti</h5>
-        <Table striped bordered hover className="table-custom">
-          <thead>
-            <tr>
-              <th>Data</th>
-              <th>Tipo di Cibo</th>
-              <th>Quantità</th>
-              <th>Prossimo Pasto</th>
-              <th>Note</th>
-              <th>Azioni</th>
-            </tr>
-          </thead>
-          <tbody>
-            {feedings.map((feeding) => (
-              <tr key={feeding._id}>
-                <td>{new Date(feeding.date).toLocaleDateString()}</td>
-                <td>{feeding.foodType}</td>
-                <td>{feeding.quantity || 'N/A'}</td>
-                <td>{new Date(feeding.nextFeedingDate).toLocaleDateString()}</td>
-                <td>{feeding.notes || 'Nessuna nota'}</td>
-                <td>
-                  <Button
-                    variant="danger"
-                    onClick={() => handleDelete(feeding._id)}
-                    className="btn-delete-custom"
-                  >
-                    Elimina
-                  </Button>
-                </td>
+        <div className="table-wrapper">
+          <Table striped bordered hover className="table-custom">
+            <thead>
+              <tr>
+                <th>Data</th>
+                <th>Tipo di Cibo</th>
+                <th>Quantità</th>
+                <th>Prossimo Pasto</th>
+                <th>Note</th>
+                <th>Azioni</th>
               </tr>
-            ))}
-          </tbody>
-        </Table>
+            </thead>
+            <tbody>
+              {feedings.map((feeding) => (
+                <tr key={feeding._id}>
+                  <td>{new Date(feeding.date).toLocaleDateString()}</td>
+                  <td>{feeding.foodType}</td>
+                  <td>{feeding.quantity || 'N/A'}</td>
+                  <td>{new Date(feeding.nextFeedingDate).toLocaleDateString()}</td>
+                  <td>{feeding.notes || 'Nessuna nota'}</td>
+                  <td>
+                    <Button
+                      variant="danger"
+                      onClick={() => handleDelete(feeding._id)}
+                      className="btn-delete-custom"
+                    >
+                      Elimina
+                    </Button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
+        </div>
+
+        <Pagination className="justify-content-center mt-4">
+          {[...Array(totalPages).keys()].map((x) => (
+            <Pagination.Item
+              key={x + 1}
+              active={x + 1 === page}
+              onClick={() => handlePageChange(x + 1)}
+            >
+              {x + 1}
+            </Pagination.Item>
+          ))}
+        </Pagination>
       </Modal.Body>
     </Modal>
   );

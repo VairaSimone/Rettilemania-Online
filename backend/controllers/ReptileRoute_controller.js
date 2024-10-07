@@ -114,12 +114,63 @@ export const PostReptile = async (req, res) => {
 export const PutReptile = async (req, res) => {
     try {
         const id = req.params.reptileId;
-        const reptileData = req.body;
+        const { name, species, morph, birthDate, growthRecords, healthRecords } = req.body;
 
-        const reptile = await Reptile.findByIdAndUpdate(id, reptileData, { new: true });
-        res.send(reptile);
+        let reptile = await Reptile.findById(id);
+
+        if (!reptile) {
+            return res.status(404).send({ message: 'Reptile not found' });
+        }
+
+        let imageUrl = reptile.image; 
+
+        if (req.file) {
+            const result = await cloudinary.uploader.upload(req.file.path);
+            imageUrl = result.secure_url; 
+        }
+
+        const parseDateOrNull = (value) => {
+            if (!value || value === 'null') return null;
+            return new Date(value);
+        };
+
+        const parseNumberOrNull = (value) => {
+            if (!value || value === 'null') return null;
+            return Number(value);
+        };
+
+        const parsedGrowthRecords = Array.isArray(growthRecords)
+            ? growthRecords.map(record => ({
+                date: parseDateOrNull(record.date),
+                weight: parseNumberOrNull(record.weight),
+                length: parseNumberOrNull(record.length),
+            }))
+            : reptile.growthRecords;
+
+        const parsedHealthRecords = Array.isArray(healthRecords)
+            ? healthRecords.map(record => ({
+                date: parseDateOrNull(record.date),
+                vetVisit: parseDateOrNull(record.vetVisit),
+                note: record.note || '',
+            }))
+            : reptile.healthRecords;
+
+        const birthDateObject = birthDate ? new Date(birthDate) : reptile.birthDate;
+
+        reptile.name = name || reptile.name;
+        reptile.species = species || reptile.species;
+        reptile.morph = morph || reptile.morph;
+        reptile.birthDate = birthDateObject;
+        reptile.image = imageUrl;
+        reptile.growthRecords = parsedGrowthRecords;
+        reptile.healthRecords = parsedHealthRecords;
+
+        const updatedReptile = await reptile.save();
+
+        res.send(updatedReptile);
     } catch (err) {
-        res.status(500).send();
+        console.error(err);
+        res.status(500).send({ message: 'Error updating reptile' });
     }
 };
 

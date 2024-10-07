@@ -1,0 +1,121 @@
+
+  .container {
+    max-width: 100%;
+    padding: 15px;
+  }
+  
+  .forum-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #4caf50;
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  
+  .forum-card {
+    border-radius: 10px;
+    background-color: #2a2a2a;
+    transition: transform 0.2s ease-in-out, box-shadow 0.3s ease-in-out;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  .forum-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.4);
+  }
+  
+  .forum-card-body {
+    background-color: #333;
+    color: #fff;
+    padding: 1.5rem;
+  }
+  
+  .forum-card-title {
+    font-size: 1.5rem;
+    color: #81c784;
+  }
+  
+  .forum-btn {
+    background: linear-gradient(45deg, #4caf50, #81c784);
+    border: none;
+    color: white;
+    padding: 0.5rem 1.25rem;
+    border-radius: 50px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+  }
+  
+  .forum-btn:hover {
+    background: linear-gradient(45deg, #66bb6a, #43a047);
+    transform: scale(1.05);
+  }
+  
+  .form-section {
+    background-color: #2a2a2a;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.3);
+  }
+  
+  .form-section h3 {
+    font-size: 1.8rem;
+    color: #4caf50;
+    margin-bottom: 1.5rem;
+  }
+  
+  .form-section .form-control {
+    background-color: #333;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .form-section .form-control:focus {
+    box-shadow: 0px 0px 10px rgba(255, 87, 34, 0.6);
+  }
+  
+  .forum-btn-create {
+    background: linear-gradient(45deg, #42a5f5, #64b5f6);
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 50px;
+    color: white;
+    transition: all 0.3s ease;
+  }
+  
+  .forum-btn-create:hover {
+    background: linear-gradient(45deg, #1976d2, #2196f3);
+    transform: scale(1.05);
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  .spinner-border {
+    color: #4caf50;
+  }
+  
+  @media (max-width: 768px) {
+    .forum-card {
+      margin-bottom: 2rem;
+    }
+  
+    .forum-card-body {
+      padding: 1rem;
+    }
+  
+    .forum-btn {
+      width: 100%;
+    }
+    
+    .forum-btn-create {
+      width: 100%;
+    }
+  
+    .form-section {
+      padding: 1.5rem;
+    }
+  }
+  .form-control {
+    margin-bottom: 15px;
+  }
+  

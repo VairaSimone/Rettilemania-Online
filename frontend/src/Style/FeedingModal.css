@@ -1,61 +1,68 @@
 .modal-header-custom {
-    background-color: #FF5722;
-    color: white;
-  }
-  
-  .modal-title-custom {
-    font-size: 1.5rem;
-    font-weight: bold;
-  }
-  
-  .input-custom {
-    border-radius: 8px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    transition: all 0.2s ease-in-out;
-  }
-  
-  .input-custom:focus {
-    box-shadow: 0px 0px 10px rgba(255, 87, 34, 0.6);
-    border-color: #FF5722;
-  }
-  
+  background-color: #42a5f5;
+  color: white;
+}
+
+.modal-title-custom {
+  font-size: 1.6rem;
+  font-weight: bold;
+  text-align: center;
+}
+
+.input-custom {
+  margin-bottom: 1rem;
+}
+
+.btn-custom {
+  margin-top: 1rem;
+  width: 100%;
+}
+
+.btn-delete-custom {
+  background-color: #e53935;
+  border: none;
+  color: white;
+  padding: 0.4rem 1rem;
+  transition: transform 0.3s ease;
+}
+
+.btn-delete-custom:hover {
+  background-color: #d32f2f;
+  transform: scale(1.05);
+}
+
+.table-wrapper {
+  max-height: 300px;
+  overflow-y: auto; 
+  overflow-x: hidden;
+  margin-top: 1rem;
+}
+
+.table-custom {
+  font-size: 0.9rem;
+  text-align: center;
+  table-layout: fixed; 
+  width: 100%;
+}
+
+.table-custom th,
+.table-custom td {
+  vertical-align: middle;
+  white-space: nowrap; 
+  overflow: hidden; 
+  text-overflow: ellipsis; 
+}
+
+.pagination {
+  justify-content: center;
+}
+
+.modal-body {
+  padding: 2rem;
+}
+
+@media (max-width: 768px) {
   .btn-custom {
-    background: linear-gradient(45deg, #FF5722, #FF7043);
-    border: none;
-    color: white;
-    transition: transform 0.2s ease;
+    width: 100%;
   }
-  
-  .btn-custom:hover {
-    transform: scale(1.05);
-    background: linear-gradient(45deg, #FF7043, #FF5722);
-  }
-  
-  .title-custom {
-    font-size: 1.25rem;
-    color: #FF5722;
-    font-weight: bold;
-    margin-bottom: 15px;
-  }
-  
-  .table-custom {
-    border-radius: 8px;
-    overflow: hidden;
-  }
-  
-  .table-custom th, .table-custom td {
-    vertical-align: middle;
-  }
-  
-  .btn-delete-custom {
-    background-color: #E53935;
-    border: none;
-    color: white;
-    transition: transform 0.2s ease;
-  }
-  
-  .btn-delete-custom:hover {
-    transform: scale(1.05);
-    background-color: #D32F2F;
-  }
-  
+}

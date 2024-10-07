@@ -1,70 +1,78 @@
 .navbar-custom {
-    background: linear-gradient(45deg, #343a40, #212529);
-    border-bottom: 2px solid #FFD700;
-    padding: 10px 20px;
-  }
-  
-  .navbar-brand {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: #FFD700;
-    transition: color 0.3s ease;
-  }
-  
-  .navbar-brand:hover {
-    color: #FFC107;
-  }
-  
-  .nav-link {
-    color: #fff;
-    font-size: 1.1rem;
-    margin-right: 15px;
-    transition: color 0.3s ease;
-  }
-  
-  .nav-link:hover {
-    color: #FFD700;
-  }
-  
-  .notification-btn {
-    position: relative;
-    background-color: transparent;
-    border: none;
-    color: #fff;
-    transition: color 0.3s ease;
-  }
-  
-  .notification-btn:hover {
-    color: #FFD700;
-  }
-  
-  .notification-badge {
-    position: absolute;
-    top: 0;
-    right: -5px;
-    transform: scale(1.1);
-    font-size: 0.9rem;
-    padding: 5px;
-    border-radius: 50%;
-  }
-  
-  .logout-btn {
-    color: #fff;
-    font-size: 1.1rem;
-    margin-left: 15px;
-    transition: color 0.3s ease;
-  }
-  
-  .logout-btn:hover {
-    color: #FFD700;
-    text-decoration: none;
-  }
-  
-  .navbar-toggler {
-    border: none;
-  }
-  
-  .navbar-toggler-icon {
-    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba%288, 8, 8, 0.8%29' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
-  }
-  
+  background: linear-gradient(45deg, #2f3640, #212529);
+  border-bottom: 2px solid #FFD700;
+  padding: 10px 20px;
+}
+
+.navbar-brand {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #FFD700;
+  transition: color 0.3s ease;
+}
+
+.navbar-brand:hover {
+  color: #FFC107;
+}
+
+.nav-link {
+  color: #fff;
+  font-size: 1.1rem;
+  margin-right: 15px;
+  transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+  color: #FFD700;
+}
+
+.notification-btn {
+  position: relative;
+  background-color: transparent;
+  border: none;
+  color: #FFD700;
+  transition: color 0.3s ease;
+}
+
+.notification-btn:hover {
+  color: #FFC107;
+}
+
+.notification-badge {
+  position: absolute;
+  top: 0;
+  right: -5px;
+  font-size: 0.9rem;
+}
+
+.user-dropdown {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.user-avatar {
+  border: 2px solid #FFD700;
+  transition: transform 0.2s ease, border-color 0.3s ease;
+}
+
+.user-avatar:hover {
+  transform: scale(1.05);
+  border-color: #FFC107;
+}
+
+.dropdown-menu {
+  background-color: #2f3640;
+  border: none;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+.dropdown-item {
+  color: #FFD700;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.dropdown-item:hover {
+  background-color: #FFC107;
+  color: black;
+}

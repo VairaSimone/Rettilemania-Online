@@ -4,7 +4,7 @@ const notificationSchema = new Schema(
     {
         user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
         reptile: { type: mongoose.Schema.Types.ObjectId, ref: 'Reptile', required: true },
-        type: { type: String, enum: ['feeding', 'health'], required: true },
+        type: { type: String, enum: ['feeding', 'health', 'new_post'], required: true },
         message: { type: String, required: true },
         date: { type: Date, required: true },
         status: { type: String, enum: ['sent', 'pending'], default: 'pending' },

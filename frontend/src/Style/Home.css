@@ -1,47 +1,185 @@
+body {
+  background-color: #1e1e1e;
+  color: #fff;
+}
+
+.container {
+  max-width: 100%;
+  padding: 0 15px;
+}
+
 .title-dashboard {
-    font-size: 2.5rem;
-    font-weight: bold;
-    color: #4CAF50;
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #4caf50;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.reptile-card {
+  border-radius: 10px;
+  background-color: #2a2a2a;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.reptile-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.4);
+}
+
+.reptile-img {
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  object-fit: cover;
+  height: 200px;
+  transition: opacity 0.3s ease;
+}
+
+.reptile-img:hover {
+  opacity: 0.9;
+}
+
+.btn-action {
+  border-radius: 50px;
+  padding: 0.5rem 1rem;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.btn-action:hover {
+  background-color: #4caf50;
+  transform: scale(1.05);
+}
+
+.btn-custom {
+  background: linear-gradient(45deg, #4caf50, #81c784);
+  border: none;
+  color: white;
+  margin-top: 1rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: 50px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.btn-custom:hover {
+  background: linear-gradient(45deg, #66bb6a, #43a047);
+  transform: translateY(-3px);
+  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.spinner-border {
+  color: #4caf50;
+}
+
+.pagination-custom .page-item.active .page-link {
+  background-color: #4caf50;
+  border-color: #4caf50;
+  transition: background-color 0.3s ease;
+}
+
+.pagination-custom .page-link {
+  color: #fff;
+  background-color: #2a2a2a;
+  border: none;
+}
+
+.pagination-custom .page-link:hover {
+  background-color: #4caf50;
+}
+
+.modal-content {
+  animation: modalFadeIn 0.4s ease-out;
+  border-radius: 15px;
+  background-color: #333;
+  color: white;
+  border: none;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-50px);
   }
-  
-  .btn-custom {
-    background: linear-gradient(45deg, #4CAF50, #81C784);
-    border: none;
-    color: white;
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
-  
-  .btn-custom:hover {
-    background: linear-gradient(45deg, #66BB6A, #43A047);
+}
+
+.btn-modal-action {
+  background-color: #42a5f5;
+  border: none;
+  padding: 0.5rem 1.25rem;
+  color: white;
+  border-radius: 50px;
+  transition: all 0.3s ease;
+}
+
+.btn-modal-action:hover {
+  background-color: #1e88e5;
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.modal-header-custom {
+  background-color: #42a5f5;
+  color: white;
+  border-bottom: none;
+  padding: 1.5rem;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.modal-title-custom {
+  font-size: 1.8rem;
+  font-weight: bold;
+  text-align: center;
+}
+
+.modal-body {
+  background-color: #2a2a2a;
+  color: white;
+  padding: 2rem;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: space-between;
+  border-top: none;
+  background-color: transparent;
+}
+
+.modal-footer button {
+  border-radius: 50px;
+  padding: 0.75rem 1.5rem;
+}
+
+@keyframes buttonHoverEffect {
+  0% {
+    transform: scale(1);
   }
-  
-  .reptile-card {
-    border-radius: 10px;
-    transition: transform 0.2s ease-in-out;
-  }
-  
-  .reptile-card:hover {
+  100% {
     transform: scale(1.05);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   }
-  
+}
+
+@media (max-width: 768px) {
+  .reptile-card {
+    margin-bottom: 2rem;
+  }
+
   .reptile-img {
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-    object-fit: cover;
-    height: 200px;
+    height: 150px;
   }
-  
-  .reptile-name {
-    font-size: 1.5rem;
-    color: #333;
+
+  .title-dashboard {
+    font-size: 2rem;
   }
-  
-  .btn-action {
-    border-radius: 50px;
+
+  .btn-custom {
+    width: 100%;
   }
-  
-  .pagination-custom .page-item.active .page-link {
-    background-color: #4CAF50;
-    border-color: #4CAF50;
-  }
-  
+}

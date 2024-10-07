@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Modal, Button, Form, Row, Col } from 'react-bootstrap';
+import { Modal, Button, Form, Row, Col, Alert } from 'react-bootstrap';
 import api from '../services/api';
 import '../Style/ReptileEditModal.css'; 
 
@@ -14,23 +14,46 @@ const ReptileEditModal = ({ show, handleClose, reptile, setReptiles }) => {
     healthRecords: [],
   });
 
-  useEffect(() => {
+  const [image, setImage] = useState(null); 
+  const [errorMessage, setErrorMessage] = useState('');  
+    useEffect(() => {
     if (reptile) {
       setFormData({
         name: reptile.name || '',
         species: reptile.species || '',
         morph: reptile.morph || '',
-        image: reptile.image || '',
         birthDate: reptile.birthDate || '',
         growthRecords: reptile.growthRecords || [],
         healthRecords: reptile.healthRecords || [],
       });
+
     }
   }, [reptile]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
+  };
+
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const validTypes = ['image/jpeg', 'image/png', 'image/jpg'];
+      if (!validTypes.includes(file.type)) {
+        setErrorMessage('Il file deve essere un\'immagine nei formati .jpeg, .jpg o .png');
+        setImage(null);
+        return;
+      }
+
+      if (file.size > 5 * 1024 * 1024) {
+        setErrorMessage('L\'immagine non può superare i 5MB');
+        setImage(null);
+        return;
+      }
+
+      setErrorMessage(''); 
+      setImage(file); 
+    }
   };
 
   const handleGrowthChange = (index, e) => {
@@ -69,24 +92,53 @@ const ReptileEditModal = ({ show, handleClose, reptile, setReptiles }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     try {
-      const { data } = await api.put(`/reptile/${reptile._id}`, formData);
+      const formDataToSubmit = new FormData();
+
+      formDataToSubmit.append('name', formData.name);
+      formDataToSubmit.append('species', formData.species);
+      formDataToSubmit.append('morph', formData.morph);
+      formDataToSubmit.append('birthDate', formData.birthDate);
+
+      if (image) {
+        formDataToSubmit.append('image', image);
+      }
+
+      formData.growthRecords.forEach((record, index) => {
+        formDataToSubmit.append(`growthRecords[${index}][date]`, record.date);
+        formDataToSubmit.append(`growthRecords[${index}][weight]`, record.weight);
+        formDataToSubmit.append(`growthRecords[${index}][length]`, record.length);
+      });
+
+      formData.healthRecords.forEach((record, index) => {
+        formDataToSubmit.append(`healthRecords[${index}][date]`, record.date);
+        formDataToSubmit.append(`healthRecords[${index}][note]`, record.note);
+        formDataToSubmit.append(`healthRecords[${index}][vetVisit]`, record.vetVisit);
+      });
+
+      const { data } = await api.put(`/reptile/${reptile._id}`, formDataToSubmit, {
+        headers: {
+          'Content-Type': 'multipart/form-data', 
+        },
+      });
+
       setReptiles((prevReptiles) =>
         prevReptiles.map((r) => (r._id === data._id ? data : r))
       );
       handleClose();
     } catch (err) {
       console.error('Error editing reptile:', err);
+      setErrorMessage('Errore durante la modifica del rettile');
     }
   };
-
   return (
-
     <Modal show={show} onHide={handleClose} centered>
       <Modal.Header closeButton className="modal-header-custom">
         <Modal.Title className="modal-title-custom">Modifica Rettile</Modal.Title>
       </Modal.Header>
       <Modal.Body>
+        {errorMessage && <Alert variant="danger">{errorMessage}</Alert>}
         <Form onSubmit={handleSubmit}>
           <Form.Group controlId="name">
             <Form.Label>Nome</Form.Label>
@@ -129,13 +181,12 @@ const ReptileEditModal = ({ show, handleClose, reptile, setReptiles }) => {
           <Form.Group controlId="image">
             <Form.Label>Immagine</Form.Label>
             <Form.Control
-              type="text"
+              type="file"
               name="image"
-              placeholder="Inserisci il file del tuo rettile"
-              value={formData.image || ''}
-              onChange={handleChange}
+              onChange={handleFileChange}
               className="input-custom"
             />
+            {image && <div style={{ marginTop: '10px' }}>File selezionato: {image.name}</div>}
           </Form.Group>
 
           <Form.Group controlId="birthDate">
@@ -151,7 +202,7 @@ const ReptileEditModal = ({ show, handleClose, reptile, setReptiles }) => {
 
           <hr />
 
-          <h5 className="section-title">Record di Crescita (Opzionale)</h5>
+          <h5 className="section-title">Record di Crescita</h5>
           {formData.growthRecords.map((record, index) => (
             <Row key={index}>
               <Col md={4}>
@@ -198,7 +249,7 @@ const ReptileEditModal = ({ show, handleClose, reptile, setReptiles }) => {
 
           <hr />
 
-          <h5 className="section-title">Record di Salute (Opzionale)</h5>
+          <h5 className="section-title">Record di Salute</h5>
           {formData.healthRecords.map((record, index) => (
             <Row key={index}>
               <Col md={4}>
@@ -243,9 +294,11 @@ const ReptileEditModal = ({ show, handleClose, reptile, setReptiles }) => {
             Aggiungi Record di Salute
           </Button>
 
-          <Button variant="primary" type="submit" className="mt-4 btn-save-custom">
-            Salva Modifiche
-          </Button>
+          <div className="d-grid gap-2 mt-4">
+            <Button variant="primary" type="submit" className="btn-save-custom">
+              Salva Modifiche
+            </Button>
+          </div>
         </Form>
       </Modal.Body>
     </Modal>

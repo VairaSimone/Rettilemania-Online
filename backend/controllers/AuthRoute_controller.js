@@ -6,7 +6,7 @@ import RevokedToken from '../models/RevokedToken.js';
 
 //generate the access token with a shorter duration
 const generateAccessToken = (user) => {
-    return jwt.sign({ userid: user.id, role: user.role }, process.env.JWT_SECRET, { expiresIn: '15m' });
+    return jwt.sign({ userid: user.id, role: user.role }, process.env.JWT_SECRET, { expiresIn: '7h' });
 };
 
 //generate the refresh token with a longer duration that will be used to request the access token
@@ -16,7 +16,8 @@ const generateRefreshToken = (user) => {
 
 export const login = async (req, res) => {
     try {
-        const user = await User.findOne({ email: req.body.email });
+        const email = await req.body.email.toLowerCase();
+        const user = await User.findOne({ email });
         if (!user) return res.status(401).json({ message: "Error in the credentials entered" });
 
         const validPassword = await bcrypt.compare(req.body.password, user.password);
@@ -103,8 +104,8 @@ export const logout = async (req, res) => {
 
         res.clearCookie('refreshToken', { 
             httpOnly: true, 
-            sameSite: 'strict', 
-            secure: process.env.NODE_ENV === 'production' 
+            sameSite: 'none', 
+            secure: true
         });
 
         return res.status(200).json({ message: "Logout successful" });

@@ -48,6 +48,10 @@ export const PutUser = async (req, res) => {
         const id = req.params.userId;
         const userData = req.body;
 
+        if (userData.role && req.user.role !== 'admin') {
+            return res.status(403).json({ message: 'You cannot change your role.' });
+        }
+            
         const user = await User.findByIdAndUpdate(id, userData, { new: true });
         res.send(user);
     } catch (err) {

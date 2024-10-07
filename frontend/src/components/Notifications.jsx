@@ -52,11 +52,8 @@ const Notifications = ({ onNotificationRead }) => {
         <p className="no-notifications">Non ci sono notifiche non lette</p>
       ) : (
         <ul className="list-group mb-4">
-          {unreadNotifications.map(notification => (
-            <li
-              key={notification._id}
-              className="list-group-item d-flex justify-content-between align-items-center unread-notification"
-            >
+          {unreadNotifications.map((notification) => (
+            <li key={notification._id} className="list-group-item d-flex justify-content-between align-items-center unread-notification">
               <div>
                 <strong>{notification.type === 'feeding' ? 'Alimentazione' : 'Salute'}:</strong> {notification.message}
                 <div><small>{new Date(notification.date).toLocaleDateString()}</small></div>
@@ -74,11 +71,8 @@ const Notifications = ({ onNotificationRead }) => {
         <p className="no-notifications">Non ci sono notifiche lette</p>
       ) : (
         <ul className="list-group">
-          {readNotifications.slice(0, 5).map(notification => (
-            <li
-              key={notification._id}
-              className="list-group-item d-flex justify-content-between align-items-center read-notification"
-            >
+          {readNotifications.slice(0, 5).map((notification) => (
+            <li key={notification._id} className="list-group-item d-flex justify-content-between align-items-center read-notification">
               <div>
                 <strong>{notification.type === 'feeding' ? 'Alimentazione' : 'Salute'}:</strong> {notification.message}
                 <div><small>{new Date(notification.date).toLocaleDateString()}</small></div>
@@ -90,4 +84,5 @@ const Notifications = ({ onNotificationRead }) => {
     </div>
   );
 };
+
 export default Notifications;

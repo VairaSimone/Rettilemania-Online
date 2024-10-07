@@ -1,31 +1,30 @@
 .profile-container {
-    max-width: 600px;
-    margin: auto;
-  }
-  
-  .profile-title {
-    font-size: 24px;
-    font-weight: bold;
-  }
-  
-  .profile-avatar {
-    width: 150px;
-    height: 150px;
-    object-fit: cover;
-    border: 3px solid #ddd;
-  }
-  
-  .card {
-    border-radius: 10px;
-  }
-  
-  .btn-danger {
-    margin-top: 10px;
-  }
-  
-  .loading {
-    text-align: center;
-    font-size: 18px;
-    margin-top: 50px;
-  }
-  
+  max-width: 600px;
+  margin: auto;
+}
+
+.profile-title {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.profile-avatar {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border: 3px solid #ddd;
+}
+
+.card {
+  border-radius: 10px;
+}
+
+.btn-danger {
+  margin-top: 10px;
+}
+
+.loading {
+  text-align: center;
+  font-size: 18px;
+  margin-top: 50px;
+}

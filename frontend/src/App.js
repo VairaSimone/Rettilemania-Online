@@ -13,6 +13,9 @@ import Footer from './components/Footer';
 import UserProfile from './components/UserProfile';
 import Notifications from './components/Notifications';
 import ReptileDetails from './components/ReptileDetails';
+import ForumPost from './pages/ForumPost';
+import ForumThreads from './pages/ForumThreads';
+import ForumCategories from './pages/ForumCategories';
 
 function App() {
   const dispatch = useDispatch()
@@ -61,6 +64,9 @@ function App() {
           }
         />
 
+        <Route path="/forum" element={<ProtectedRoute><NavBar /><ForumCategories /><Footer /></ProtectedRoute>} />
+        <Route path="/forum/categories/:categoryId" element={<ProtectedRoute><NavBar /><ForumThreads /><Footer /></ProtectedRoute>} />
+        <Route path="/forum/threads/:threadId" element={<ProtectedRoute><NavBar /><ForumPost /><Footer /></ProtectedRoute>} />
         <Route path="/login-google-callback" element={<GoogleCallback />} />
       </Routes>
     </Router>

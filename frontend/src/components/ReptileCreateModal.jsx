@@ -259,9 +259,11 @@ const ReptileCreateModal = ({ show, handleClose, setReptiles, onSuccess }) => {
             Aggiungi Record di Salute
           </Button>
 
-          <Button variant="primary" type="submit" className="mt-4 btn-save-custom">
-            Salva Rettile
-          </Button>
+          <div className="d-grid gap-2 mt-4">
+            <Button variant="primary" type="submit" className="btn-save-custom">
+              Salva Rettile
+            </Button>
+          </div>
         </Form>
       </Modal.Body>
     </Modal>

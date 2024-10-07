@@ -4,6 +4,16 @@ import User from '../models/User.js';
 
 //Refresh Token Management. Requests an Access Token if expired and saves the Refresh Token in cookies
 export const refreshToken = async (req, res) => {
+
+
+    const generateAccessToken = (user) => {
+        return jwt.sign({ userid: user.id, role: user.role }, process.env.JWT_SECRET, { expiresIn: '7h' });
+    };
+    
+    const generateRefreshToken = (user) => {
+        return jwt.sign({ userid: user.id }, process.env.JWT_REFRESH_SECRET, { expiresIn: '7d' });
+    };
+
     const token = req.cookies.refreshToken;
     if (!token) return res.status(403).json({ message: "Refresh token missing" });
 
