@@ -9,8 +9,6 @@ const googleStrategy = new GoogleStrategy({
     callbackURL: `${process.env.BACKEND_URL}:${process.env.PORT}${process.env.GOOGLE_CALLBACK}`
 }, async function (accessToken, refreshToken, profile, passportNext) {
     const { name, sub: googleId } = profile._json; 
-    console.log("Profile _json:", profile._json);
-    console.log("Google ID:", googleId);
 
     try {
         let user = await User.findOne({ googleId });
@@ -23,7 +21,9 @@ const googleStrategy = new GoogleStrategy({
         } else {
             user = new User({
                 googleId,
-                name: name || "Unknown Name", 
+                name: name || "Unknown Name",
+                email: profile._json.email, 
+                avatar: profile._json.picture || "https://static.thenounproject.com/png/363639-200.png",
                 refreshToken: refreshToken || null,
             });
         }
