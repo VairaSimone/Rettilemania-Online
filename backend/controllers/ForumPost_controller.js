@@ -73,6 +73,7 @@ export const createPost = async (req, res) => {
 
     res.status(201).json(savedPost);
   } catch (error) {
+    console.log(error);
     res.status(500).json({ message: 'Error creating post' });
   }
 };

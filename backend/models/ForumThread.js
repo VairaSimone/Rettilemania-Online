@@ -7,6 +7,7 @@ const forumThreadSchema = new Schema(
         user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
         category: { type: mongoose.Schema.Types.ObjectId, ref: 'ForumCategory', required: true },
         createdAt: { type: Date, default: Date.now },
+        subscriptions: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }], 
         posts: [{ type: mongoose.Schema.Types.ObjectId, ref: 'ForumPost' }]
     },
     {
