@@ -12,7 +12,7 @@ import '../Style/Navbar.css';
 const Navbar = () => {
   const [notificationsCount, setNotificationsCount] = useState(0);
   const [showModal, setShowModal] = useState(false);
-  const user = useSelector(selectUser); 
+  const user = useSelector(selectUser);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -67,9 +67,9 @@ const Navbar = () => {
         </button>
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav ms-auto">
-            <li className="nav-item">
+            <li className="nav-item d-flex align-items-center">
               <button className="btn btn-light notification-btn" onClick={handleShow}>
-                <FaBell size={20} />
+                <FaBell size={20} className="me-2" />
                 {notificationsCount > 0 && (
                   <Badge bg="danger" pill className="notification-badge">
                     {notificationsCount}
@@ -77,21 +77,23 @@ const Navbar = () => {
                 )}
               </button>
             </li>
-            <li className="nav-item">
-              <NavLink className="nav-link" to="/forum">Forum</NavLink>
+            <li className="nav-item d-flex align-items-center">
+              <NavLink className="nav-link" to="/forum">
+                <span className="me-2">Forum</span>
+              </NavLink>
             </li>
-
             <li className="nav-item">
               <Dropdown align="end">
                 <Dropdown.Toggle as="div" id="dropdown-user" className="d-flex align-items-center user-dropdown">
                   <Image
-                    src={user?.avatar || 'https://via.placeholder.com/40'} // Immagine dell'avatar dell'utente
+                    src={user?.avatar || 'https://via.placeholder.com/40'}
                     roundedCircle
-                    className="user-avatar"
+                    className="user-avatar me-2"
                     alt="User Avatar"
                     width={40}
                     height={40}
                   />
+                  <span>{user?.name || 'Utente'}</span>
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu>
