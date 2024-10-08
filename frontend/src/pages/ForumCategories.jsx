@@ -40,6 +40,7 @@ const ForumCategories = () => {
 
   return (
     <Container className="mt-4">
+      <Link className="btn btn-outline-secondary" to="/home">Torna indietro</Link>
       <h2 className="forum-title">Forum - Categorie</h2>
 
       {loading ? (

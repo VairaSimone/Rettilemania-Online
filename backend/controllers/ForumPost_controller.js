@@ -36,7 +36,7 @@ export const getThreadPosts = async (req, res) => {
 
 export const createPost = async (req, res) => {
   const { threadId } = req.params;
-  const { title, content, user, category, imageUrl } = req.body;
+  const { title, content, user, category, image } = req.body;
 
   try {
     if (!title || !content || !user || !category) {
@@ -49,7 +49,7 @@ export const createPost = async (req, res) => {
       user,
       category,
       thread: threadId,
-      imageUrl: imageUrl || null,
+      image: image || null,
     });
 
     const savedPost = await newPost.save();
@@ -109,6 +109,7 @@ export const deletePost = async (req, res) => {
 
 export const likePost = async (req, res) => {
   const { postId } = req.params;
+  const userId = req.body.userId; 
 
   try {
     const post = await ForumPost.findById(postId);
@@ -116,10 +117,19 @@ export const likePost = async (req, res) => {
       return res.status(404).json({ message: 'Post not found' });
     }
 
-    post.likes += 1;
+    const userHasLiked = post.likedBy.includes(userId);
+
+    if (userHasLiked) {
+      post.likes -= 1;
+      post.likedBy = post.likedBy.filter((id) => id.toString() !== userId);
+    } else {
+      post.likes += 1;
+      post.likedBy.push(userId);
+    }
+
     await post.save();
-    
-    res.json({ message: 'Post liked', likes: post.likes });
+
+    res.json({ message: userHasLiked ? 'Like removed' : 'Post liked', likes: post.likes });
   } catch (error) {
     res.status(500).json({ message: 'Error liking post' });
   }

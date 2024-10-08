@@ -11,17 +11,39 @@ const ForumThreads = () => {
   const [error, setError] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
 
+
+  const fetchCreatorName = async (creatorId) => {
+    try {
+      const { data } = await api.get(`/user/${creatorId}`);
+      return data.name;
+    } catch (err) {
+      console.error('Errore nel recupero del nome del creatore', err);
+      return 'Sconosciuto';
+    }
+  };
+
   useEffect(() => {
     const fetchThreads = async () => {
       try {
         const { data } = await api.get(`/forum/categories/${categoryId}/threads`);
-        setThreads(data.threads);
+        
+        console.log(data); 
+  
+        const threadsWithCreatorNames = await Promise.all(
+          data.threads.map(async (thread) => {
+            const creatorName = await fetchCreatorName(thread.user);
+            return { ...thread, creatorName }; 
+          })
+        );
+  
+        setThreads(threadsWithCreatorNames); 
         setLoading(false);
       } catch (err) {
         setError('Errore nel caricamento dei thread');
         setLoading(false);
       }
     };
+  
     fetchThreads();
   }, [categoryId]);
 
@@ -55,6 +77,7 @@ const ForumThreads = () => {
 
   return (
     <Container className="mt-4">
+      <Link className="btn btn-outline-secondary" to="/forum">Torna indietro</Link>
       <h2 className="forum-title">Forum - Thread</h2>
 
       <Form onSubmit={handleSearch} className="mb-4">
@@ -83,6 +106,7 @@ const ForumThreads = () => {
               <Card.Body className="forum-card-body">
                 <Card.Title className="forum-card-title">{thread.title}</Card.Title>
                 <Card.Text>{thread.content.substring(0, 100)}...</Card.Text>
+                <Card.Text><small>Creato da: {thread.creatorName} il {new Date(thread.createdAt).toLocaleString()}</small></Card.Text>
                 <Button as={Link} to={`/forum/threads/${thread._id}`} className="forum-btn">
                   Visualizza Post
                 </Button>
