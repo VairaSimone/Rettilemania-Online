@@ -5,6 +5,7 @@ import { Spinner, Alert, Form, Button, Container } from 'react-bootstrap';
 import { selectUser } from '../features/userSlice';  
 import api from '../services/api';
 
+//post
 const ForumPost = () => {
   const { threadId } = useParams();
   const [posts, setPosts] = useState([]);
